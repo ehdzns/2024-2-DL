@@ -6,6 +6,7 @@ import pandas as pd
 import re
 import ast
 import copy
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 #####################
 #####functions#######
 #####################
@@ -30,7 +31,7 @@ def encode_image(image_path):
 
 # API Visual Prompting result
 def VPR(IMG_CONTENT,base64_image):
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    client = OpenAI()
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -61,7 +62,7 @@ def VPR(IMG_CONTENT,base64_image):
     )
     return response
 def CMTCH(text):
-    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+    client = OpenAI()
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
