@@ -75,7 +75,7 @@ def CMTCH(text,base64_image):
         model="gpt-4o",
         messages=[
             {"role": "system", "content": """# you are a worker of Mturk
-            #Object:label if the input text is the comment about certain image
+            #Object:label if the input text is the comment or personal impression
             # Output: Yes or N0"""},
              {"role": "user", "content": [
                 {"type": "text", "text":text}
