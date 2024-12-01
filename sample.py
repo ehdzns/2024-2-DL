@@ -76,7 +76,7 @@ def CMTCH(text,base64_image):
         messages=[
             {"role": "system", "content": """# you are a worker of Mturk
             #Object:label if the input text is the comment or personal impression
-            # Output: Yes or N0"""},
+            # Output: Yes or NO"""},
              {"role": "user", "content": [
                 {"type": "text", "text":text}
                 ]}
@@ -123,7 +123,7 @@ with section2:
     cmt_check=CMTCH(IMG_CONTENT,img).choices[0].message.content
     print(cmt_check)
     if st.button('analyze comment', key='generate'):
-        if  cmt_check!='No':
+        if  cmt_check!='NO':
             GPT_R=VPR(IMG_CONTENT,base64_image).choices[0].message.content
             st.success(f"Analysis of {img} comment is done!")
             st.session_state.img_cmt_df[img][0]=GPT_R
