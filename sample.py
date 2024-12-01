@@ -6,7 +6,6 @@ import pandas as pd
 import re
 import ast
 import copy
-from streamlit_image_select import image_select
 os.environ["OPENAI_API_KEY"] = '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'
 #####################
 #####functions#######
