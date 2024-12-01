@@ -37,7 +37,15 @@ def VPR(IMG_CONTENT,base64_image):
         messages=[
             {"role": "system", "content": """
             #Persona:Personality Psychologist|MBTI|examine the [image]|suggest respthondent's personality type based on the [reaction] form [image]
-            
+            #Domain Knowledge: 
+            ## E:Individuals who are energized by external world, social interactions, and outer stimuli.
+            ## I:Individuals who are energized by inner world, reflection, and internal thoughts.
+            ## S:Focus on concrete, tangible, and present information.Prefer practical, detail-oriented approaches.
+            ## N:Focus on abstract, conceptual, and future possibilities.Prefer innovative, big-picture thinking.
+            ## T:Decisions based on objective, logical analysis.Prioritize fairness and consistent principles.
+            ## F:Decisions based on personal values, empathy, and human impact.Prioritize harmony and individual circumstances.
+            ## J:Prefer structured, planned, and organized approaches.Like clear decisions and definitive conclusions.
+            ## P:Prefer flexible, spontaneous, and adaptable approaches.Enjoy keeping options open and gathering more information.
             #CONDITION: Consider the [CONTEXT] between [image] and [reaction] 
             ##Output: [python dictionary]and[reasoning]
             ###[python dictionary]format:{'E':n,'I':n,'S':n,'N':n,'T':n,'F':n,'J':n,'P':n}
@@ -61,7 +69,7 @@ def VPR(IMG_CONTENT,base64_image):
         temperature=1,
     )
     return response
-def CMTCH(text):
+def CMTCH(text,base64_image):
     client = OpenAI()
     response = client.chat.completions.create(
         model="gpt-4o",
@@ -71,6 +79,9 @@ def CMTCH(text):
             # Output: Yes or N0"""},
              {"role": "user", "content": [
                 {"type": "text", "text":text} 
+                 {"type": "image_url", "image_url": {
+                "url": f"data:image/png;base64,{base64_image}"}
+                }
                 ]}
             ],
         temperature=1,
@@ -112,10 +123,10 @@ section2 = st.container(border=True)
 with section2:
     IMG_CONTENT=st.text_input(f"‣ Write the impression of the image here {img}", "")
     base64_image = encode_image(img)
-    cmt_check=CMTCH(IMG_CONTENT).choices[0].message.content
+    cmt_check=CMTCH(IMG_CONTENT,img).choices[0].message.content
     print(cmt_check)
     if st.button('Run MBTI', key='generate'):
-        if  cmt_check=='Yes':
+        if  cmt_check!='No':
             GPT_R=VPR(IMG_CONTENT,base64_image).choices[0].message.content
             st.success(f"Analysis of {img} comment is done!")
             st.session_state.img_cmt_df[img][0]=GPT_R
