@@ -143,6 +143,9 @@ with section3:
         S,N=ratcal(fin_df.sum()['S'],fin_df.sum()['N'])
         T,F=ratcal(fin_df.sum()['T'],fin_df.sum()['F'])
         J,P=ratcal(fin_df.sum()['J'],fin_df.sum()['P'])
-        st.write(f'E:{E}%, I:{I}%, S:{S}%, N:{N}%, T:{T}%, F:{F}%, J:{J}%, P:{P}%')
+        st.write(f'''E:{E}%, I:{I}%, 
+        S:{S}%, N:{N}%, 
+        T:{T}%, F:{F}%, 
+        J:{J}%, P:{P}%''')
         st.write(fin_df)
     st.cache_data.clear()
