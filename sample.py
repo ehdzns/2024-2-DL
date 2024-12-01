@@ -122,7 +122,7 @@ with section2:
     base64_image = encode_image(img)
     cmt_check=CMTCH(IMG_CONTENT,img).choices[0].message.content
     print(cmt_check)
-    if st.button('Run MBTI', key='generate'):
+    if st.button('analyze comment', key='generate'):
         if  cmt_check!='No':
             GPT_R=VPR(IMG_CONTENT,base64_image).choices[0].message.content
             st.success(f"Analysis of {img} comment is done!")
@@ -135,7 +135,8 @@ with section2:
 section3 = st.container(border=True)
 with section3:
     st.write(st.session_state.img_cmt_df[img][0])
-    if st.button('MBTI Result'):
+    
+    if st.button('Generate MBTI Result'):
         fin_df=pd.DataFrame(list(st.session_state.img_cmt_df.iloc[1,:]))
         
         E,I=ratcal(fin_df.sum()['E'],fin_df.sum()['I'])
