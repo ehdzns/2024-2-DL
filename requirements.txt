@@ -1,5 +1,4 @@
 openai
 base64
-streamlit
 pandas
 ast
