@@ -72,7 +72,7 @@ def VPR(IMG_CONTENT,base64_image):
 def CMTCH(text,base64_image):
     client = OpenAI()
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4-turbo",
         messages=[
             {"role": "system", "content": """# you are a worker of Mturk
             #Object:label if the input text is the comment or personal impression
